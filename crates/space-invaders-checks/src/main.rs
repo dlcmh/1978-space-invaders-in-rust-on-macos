@@ -270,6 +270,46 @@ fn main() -> ExitCode {
     game.command(Command::TogglePause);
     c.check(!game.is_paused(), "pause toggles back off");
 
+    // Holding fire reloads the cannon without further commands.
+    let mut held = started_game(0x5EED);
+    ensure_playing(&mut held);
+    held.command(Command::SetFire(true));
+    let mut held_shots = 0;
+    for _ in 0..300 {
+        held.tick();
+        held_shots += held
+            .take_events()
+            .iter()
+            .filter(|event| matches!(event, GameEvent::PlayerShoot))
+            .count();
+        if matches!(held.phase(), Phase::PlayerDeath { .. } | Phase::GameOver) {
+            break;
+        }
+    }
+    c.check(held_shots >= 2, "held fire reloads the cannon");
+
+    // Releasing the button stops the reloads once the live bullet leaves.
+    held.command(Command::SetFire(false));
+    let mut settle = 0;
+    while held.player_bullet().is_some() && settle < 200 {
+        held.tick();
+        let _ = held.take_events();
+        settle += 1;
+    }
+    let mut shots_after_release = 0;
+    for _ in 0..120 {
+        held.tick();
+        shots_after_release += held
+            .take_events()
+            .iter()
+            .filter(|event| matches!(event, GameEvent::PlayerShoot))
+            .count();
+    }
+    c.check(
+        shots_after_release == 0,
+        "released fire stops shooting after the live bullet",
+    );
+
     // Enemy fire is produced and stays inside the screen.
     let mut saw_enemy_bullet = false;
     for _ in 0..2_000 {

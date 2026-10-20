@@ -77,6 +77,14 @@ Cover is tested before invaders. A shot that reaches a bunker can never also hit
 an invader behind it in the same tick. The same applies to a descending enemy
 bullet.
 
+Reloading is input state, not a timer. [`Game::try_fire`](../../crates/space-invaders-core/src/game.rs)
+fires once for a tap and then once per tick while
+[`Game::command`](../../crates/space-invaders-core/src/game.rs) has been given a
+latched `Command::SetFire`, so holding the button re-fires on the tick the single
+bullet leaves play. Releasing the button clears the latch and lets the live
+bullet finish its flight. Because the one-bullet rule still holds, held fire
+cannot outrun the cannon's reload.
+
 ### Enemy bullet, top to bottom
 
 [`Game::move_enemy_bullets`](../../crates/space-invaders-core/src/game.rs) moves each

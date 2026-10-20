@@ -214,10 +214,17 @@ impl GameView {
         match key {
             123 | 0 => state.game.command(Command::SetLeft(pressed)), // left arrow / A
             124 | 2 => state.game.command(Command::SetRight(pressed)), // right arrow / D
-            49 if pressed && !event.isARepeat() => match state.game.phase() {
-                Phase::Attract | Phase::GameOver => state.game.command(Command::Start),
-                _ => state.game.command(Command::Fire),
-            },
+            49 => {
+                if pressed
+                    && !event.isARepeat()
+                    && matches!(state.game.phase(), Phase::Attract | Phase::GameOver)
+                {
+                    state.game.command(Command::Start);
+                }
+                // The core latches the button and reloads on its own, so holding
+                // Space keeps firing without relying on macOS key repeat.
+                state.game.command(Command::SetFire(pressed));
+            }
             36 | 76 if pressed => {
                 if matches!(state.game.phase(), Phase::Attract | Phase::GameOver) {
                     state.game.command(Command::Start);

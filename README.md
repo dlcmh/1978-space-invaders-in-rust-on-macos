@@ -45,7 +45,7 @@ macOS; there is no Xcode project and no runtime package manager.
 | Key | Action |
 | --- | --- |
 | ← / → or A / D | Move the laser cannon |
-| Space | Fire |
+| Space | Fire (hold to keep firing) |
 | Return | Start game / play again |
 | P / Esc | Pause / resume |
 | M | Mute / unmute |

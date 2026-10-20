@@ -51,6 +51,9 @@ pub enum Command {
     Start,
     /// Fire the cannon if it is able to.
     Fire,
+    /// Hold or release the fire button. While held, the cannon reloads and
+    /// fires again as soon as its single bullet leaves play.
+    SetFire(bool),
     /// Pause or resume a live round.
     TogglePause,
     /// Hold or release the left movement direction.
@@ -307,6 +310,7 @@ pub struct Game {
     events: Vec<GameEvent>,
     left_held: bool,
     right_held: bool,
+    fire_held: bool,
     shots_fired: u32,
     bonus_life_awarded: bool,
     rng: Rng,
@@ -346,6 +350,7 @@ impl Game {
             events: Vec::new(),
             left_held: false,
             right_held: false,
+            fire_held: false,
             shots_fired: 0,
             bonus_life_awarded: false,
             rng: Rng::new(seed),
@@ -388,13 +393,11 @@ impl Game {
                     self.start_game();
                 }
             }
-            Command::Fire => {
-                if matches!(self.phase, Phase::Playing)
-                    && !self.paused
-                    && self.player.alive
-                    && self.player_bullet.is_none()
-                {
-                    self.fire_player_bullet();
+            Command::Fire => self.try_fire(),
+            Command::SetFire(held) => {
+                self.fire_held = held;
+                if held {
+                    self.try_fire();
                 }
             }
             Command::TogglePause => {
@@ -613,6 +616,16 @@ impl Game {
         }
     }
 
+    fn try_fire(&mut self) {
+        if matches!(self.phase, Phase::Playing)
+            && !self.paused
+            && self.player.alive
+            && self.player_bullet.is_none()
+        {
+            self.fire_player_bullet();
+        }
+    }
+
     fn tick_playing(&mut self) {
         self.move_player();
         self.move_player_bullet();
@@ -633,6 +646,11 @@ impl Game {
             self.enemy_bullets.clear();
             self.mystery = None;
             self.emit(GameEvent::WaveCleared);
+            return;
+        }
+
+        if self.fire_held {
+            self.try_fire();
         }
     }
 
@@ -1042,6 +1060,60 @@ mod tests {
         assert_eq!(game.phase(), Phase::Attract);
         assert!(game.player_bullet().is_none());
         assert_eq!(game.aliens_alive(), 55);
+    }
+
+    fn count_shots(game: &mut Game) -> usize {
+        game.take_events()
+            .iter()
+            .filter(|event| matches!(event, GameEvent::PlayerShoot))
+            .count()
+    }
+
+    #[test]
+    fn holding_fire_relaunches_the_bullet() {
+        let mut game = started_game();
+        game.command(Command::SetFire(true));
+        let mut shots = 0;
+        for _ in 0..300 {
+            if matches!(game.phase(), Phase::PlayerDeath { .. } | Phase::GameOver) {
+                break;
+            }
+            game.tick();
+            shots += count_shots(&mut game);
+        }
+        assert!(shots >= 2, "held fire should reload, got {shots} shots");
+    }
+
+    #[test]
+    fn releasing_fire_stops_after_the_bullet_leaves() {
+        let mut game = started_game();
+        game.command(Command::SetFire(true));
+        for _ in 0..120 {
+            game.tick();
+            let _ = game.take_events();
+        }
+        game.command(Command::SetFire(false));
+        while game.player_bullet().is_some() {
+            game.tick();
+            let _ = game.take_events();
+        }
+        let mut shots = 0;
+        for _ in 0..120 {
+            game.tick();
+            shots += count_shots(&mut game);
+        }
+        assert_eq!(shots, 0, "released fire must not reload");
+    }
+
+    #[test]
+    fn paused_held_fire_does_not_shoot() {
+        let mut game = started_game();
+        game.command(Command::TogglePause);
+        game.command(Command::SetFire(true));
+        for _ in 0..60 {
+            game.tick();
+        }
+        assert!(game.player_bullet().is_none());
     }
 
     #[test]

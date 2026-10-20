@@ -111,7 +111,8 @@ update these invariants and their checks:
 - The formation steps 2 pixels sideways, drops 8 pixels at a wall, and reverses.
 - The step interval shrinks as invaders are destroyed and is bounded below at
   2 ticks.
-- One player bullet may be in flight at a time; it moves 4 pixels per tick.
+- One player bullet may be in flight at a time; it moves 4 pixels per tick. While
+  fire is held, the cannon reloads on the tick its bullet leaves play.
 - Enemy bullets move 1.5 pixels per tick and are capped at three at level 1.
 - There are four 22 × 16 destructible bunkers, restored at the start of each
   wave, with persistent damage within a wave.
@@ -164,7 +165,7 @@ Add checks when changing gameplay, movement, collision, scoring, or state
 transitions. A green baseline currently ends with:
 
 ```text
-PASS: 9460 checks
+PASS: 9462 checks
 ```
 
 Counts may grow. The important requirement is that all checks pass. For pure
