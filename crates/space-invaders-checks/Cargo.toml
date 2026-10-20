@@ -1,0 +1,18 @@
+[package]
+name = "space-invaders-checks"
+description = "Dependency-free behavioral checks for the Space Invaders simulation"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "SpaceInvadersChecks"
+path = "src/main.rs"
+
+[dependencies]
+space-invaders-core = { path = "../space-invaders-core" }
+
+[lints]
+workspace = true

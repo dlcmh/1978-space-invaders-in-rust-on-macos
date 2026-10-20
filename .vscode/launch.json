@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Space Invaders",
+            "cargo": {
+                "args": ["build", "--package=space-invaders-app", "--bin=SpaceInvaders"],
+                "filter": {
+                    "name": "SpaceInvaders",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

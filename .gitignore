@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Rust build products
+/target/
+**/*.rs.bk
+
+# Generated release artifacts
+dist/
+Resources/AppIcon.iconset/
+
+# Local editor / tooling state
+.idea/
+*.iml
+__pycache__/
+*.py[cod]
+.venv/
+venv/

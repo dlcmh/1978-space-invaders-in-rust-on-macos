@@ -1,0 +1,85 @@
+[package]
+name = "space-invaders-app"
+description = "Native macOS Space Invaders rendered with Metal"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "SpaceInvaders"
+path = "src/main.rs"
+
+[dependencies]
+space-invaders-core = { path = "../space-invaders-core" }
+objc2 = "0.6.5"
+objc2-foundation = { version = "0.3.2", default-features = false, features = [
+    "std",
+    "NSError",
+    "NSGeometry",
+    "NSNotification",
+    "NSObject",
+    "NSString",
+    "NSTimer",
+    "NSUserDefaults",
+    "block2",
+] }
+objc2-app-kit = { version = "0.3.2", default-features = false, features = [
+    "std",
+    "NSApplication",
+    "NSColor",
+    "NSEvent",
+    "NSGraphics",
+    "NSMenu",
+    "NSMenuItem",
+    "NSResponder",
+    "NSRunningApplication",
+    "NSView",
+    "NSWindow",
+    "objc2-core-foundation",
+    "objc2-quartz-core",
+] }
+objc2-metal = { version = "0.3.2", default-features = false, features = [
+    "std",
+    "MTLAllocation",
+    "MTLBuffer",
+    "MTLCommandBuffer",
+    "MTLCommandEncoder",
+    "MTLCommandQueue",
+    "MTLDevice",
+    "MTLDrawable",
+    "MTLLibrary",
+    "MTLPixelFormat",
+    "MTLRenderCommandEncoder",
+    "MTLRenderPass",
+    "MTLRenderPipeline",
+    "MTLResource",
+    "MTLTexture",
+    "MTLTypes",
+    "MTLVertexDescriptor",
+    "block2",
+] }
+objc2-quartz-core = { version = "0.3.2", default-features = false, features = [
+    "std",
+    "CALayer",
+    "CAMediaTiming",
+    "CAMetalLayer",
+    "objc2-metal",
+    "objc2-core-foundation",
+] }
+objc2-audio-toolbox = { version = "0.3.2", default-features = false, features = [
+    "std",
+    "AudioQueue",
+    "objc2-core-audio-types",
+    "objc2-core-foundation",
+] }
+objc2-core-audio-types = { version = "0.3.2", default-features = false, features = [
+    "std",
+    "CoreAudioBaseTypes",
+    "objc2",
+] }
+block2 = "0.6.2"
+
+[lints]
+workspace = true
