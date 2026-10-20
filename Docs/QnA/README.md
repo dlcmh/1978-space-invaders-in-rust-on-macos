@@ -10,6 +10,7 @@ file. When dates are equal, the most recently added question comes first.
 
 | Question | Last updated | Covers |
 | --- | --- | --- |
+| [How do I watch CPU and memory usage while playing the game?](watching-cpu-and-memory.md) | 2026-10-20 | `top` against the app's pid, reading `%CPU`/`MEM`, and what the numbers should look like |
 | [When would sprite sheets, a game engine, texture assets, or runtime downloads be needed?](procedural-assets.md) | 2026-10-20 | Procedural art, the escalation ladder, and the triggers that justify an asset pipeline |
 | [How does the game make sound without audio files?](audio-synth.md) | 2026-10-20 | `AudioQueue`, the voice bank, envelopes, and event-to-cue mapping |
 | [How does one draw call render the whole game?](metal-renderer.md) | 2026-10-20 | Canvas triangles, triple buffering, MSAA, uniforms, and presentation |
