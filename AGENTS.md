@@ -210,7 +210,7 @@ with `<!-- docs-check: ignore -->`.
 ## Git and release workflow
 
 - `main` is the canonical trunk.
-- `origin` is <https://github.com/dlcmh/1978-space-invaders-in-rust-on-macos.git>.
+- `origin` is <git@github.com:dlcmh/1978-space-invaders-in-rust-on-macos.git>.
 - Use Conventional Commit messages, for example:
   - `feat: add mystery-ship score popups`
   - `fix: prevent bunker damage from skipping a descending bullet`

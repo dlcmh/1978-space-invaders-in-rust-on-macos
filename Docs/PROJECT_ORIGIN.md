@@ -55,8 +55,8 @@ set this repo's upstream to https://github.com/dlcmh/1978-space-invaders-in-rust
    checks harness, a documentation set, and governance documents.
 4. Apply modern Rust software-engineering practice and **document the Rust
    choices**, not merely the feature list.
-5. Set the repository's upstream to
-   <https://github.com/dlcmh/1978-space-invaders-in-rust-on-macos.git>.
+5. Set the repository's upstream. The original request named the HTTPS URL;
+   the remote was later switched to SSH at the maintainer's direction.
 6. Deliver the result in one implementation pass rather than a mock-up or a
    partial prototype.
 
@@ -149,7 +149,9 @@ practice, and governance, and for the upstream remote to be set. That establishe
 [GOVERNANCE.md](../GOVERNANCE.md), [SECURITY.md](../SECURITY.md), this record,
 and the [Q&A](QnA/README.md) and [Refactoring](Refactoring/README.md) indexes.
 The canonical remote is `origin`:
-<https://github.com/dlcmh/1978-space-invaders-in-rust-on-macos.git>.
+<git@github.com:dlcmh/1978-space-invaders-in-rust-on-macos.git>. On 2026-10-20
+the maintainer asked for the remote to use SSH instead of HTTPS; the canonical
+browse URL remains <https://github.com/dlcmh/1978-space-invaders-in-rust-on-macos>.
 
 ## Record maintenance
 

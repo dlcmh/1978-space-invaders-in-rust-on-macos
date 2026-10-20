@@ -144,8 +144,8 @@ local high score and mute preference are stored. Security handling is defined in
 
 ## Repository and remote policy
 
-- `origin` is the canonical GitHub remote:
-  <https://github.com/dlcmh/1978-space-invaders-in-rust-on-macos.git>
+- `origin` is the canonical GitHub remote over SSH:
+  <git@github.com:dlcmh/1978-space-invaders-in-rust-on-macos.git>
 - `main` tracks `origin/main`.
 - Force-pushing, rewriting published history, changing the canonical remote, or
   adding another release remote requires maintainer approval.
