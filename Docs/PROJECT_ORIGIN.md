@@ -10,6 +10,7 @@ immutable.
 - **Commissioned by:** David Chin ([@dlcmh](https://github.com/dlcmh))
 - **Commissioned:** 2026-10-20 21:06:43 (+08:00, Asia/Kuala_Lumpur)
 - **Delivery agent:** DeepSeek Harness (deepseek-flash)
+- **Initial implementation commit:** `95ad9e6c6348a23c555a3f0ed75f5bd5d9b84a5f`
 - **Initial public version:** 1.0
 - **Reference implementation for repository shape:** PAC-MAN — Metal Arcade
   (Swift), at the time under `/Users/dlcmh/dev/pac-man-arcade-swift-macos`
