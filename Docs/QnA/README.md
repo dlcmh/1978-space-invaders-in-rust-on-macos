@@ -10,6 +10,7 @@ file. When dates are equal, the most recently added question comes first.
 
 | Question | Last updated | Covers |
 | --- | --- | --- |
+| [When would sprite sheets, a game engine, texture assets, or runtime downloads be needed?](procedural-assets.md) | 2026-10-20 | Procedural art, the escalation ladder, and the triggers that justify an asset pipeline |
 | [How does the game make sound without audio files?](audio-synth.md) | 2026-10-20 | `AudioQueue`, the voice bank, envelopes, and event-to-cue mapping |
 | [How does one draw call render the whole game?](metal-renderer.md) | 2026-10-20 | Canvas triangles, triple buffering, MSAA, uniforms, and presentation |
 | [How does the invader march and collision system work?](formation-and-collisions.md) | 2026-10-20 | Formation stepping, acceleration, bullet order, bunker craters |
